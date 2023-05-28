@@ -9,7 +9,7 @@ def chatGPT(messages):
         temperature=1,
         messages=messages,
     )
-    print(response['usage']['prompt_tokens'],response['usage']['completion_tokens'])
+    # print(response['usage']['prompt_tokens'],response['usage']['completion_tokens'])
     return response['choices'][0]['message']['content']
 class Bot:
     messages=[]
@@ -27,6 +27,9 @@ class Bot:
     def get_messages(self):
         return self.messages
 bot=Bot()
+with open(os.path.join(basedir,'ans.txt'), mode='w',encoding='utf-8') as result:
+        result.write('以下是回答\n')
+        result.close()
 for i in range(10):
     with open(os.path.join(basedir,'prompts',str(i+1)+'.txt'), mode='r',encoding='utf-8') as prompt:
         bot.append('user',prompt.read())
